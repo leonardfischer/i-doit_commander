@@ -40,7 +40,7 @@ class Search extends AbstractTask
      */
     public function getName(): string
     {
-        return 'Öffnet ein existierendes Objekt';
+        return 'Öffnet die Suche';
     }
 
     /**

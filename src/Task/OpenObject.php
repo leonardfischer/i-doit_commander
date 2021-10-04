@@ -38,7 +38,7 @@ class OpenObject extends AbstractTask
             $objectId = Ci::instance($this->database)->findByObjectName($search);
 
             if (!$objectId) {
-                return 'idoit.Notify.warning("' . $this->language->get('LC__MODULE__LFISCHER_COMMANDER__COULD_NOT_FIND_BY_NAME', $search) . '", {life: 10});';
+                return 'idoit.Notify.warning("' . $this->language->get('LC__MODULE__LFISCHER_COMMANDER__COULD_NOT_FIND_OBJ_NAME', $search) . '", {life: 10});';
             }
         }
 

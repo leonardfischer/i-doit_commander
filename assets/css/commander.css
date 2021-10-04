@@ -13,12 +13,17 @@
     position: absolute;
     top: 40%;
     left: 50%;
-    background: #fff;
+    background: #ffffff;
     padding: 10px;
     border-radius: 10px;
     width: 400px;
-    margin-left:-200px;
+    margin-left: -200px;
     z-index: 210;
+}
+
+.lfischer-commander > .close {
+    float: right;
+    cursor: pointer;
 }
 
 .lfischer-commander-input {

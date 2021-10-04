@@ -16,13 +16,16 @@ window.Commander = Class.create({
         if (!this.$commander) {
             this.$input = new Element('input', {className: 'lfischer-commander-input input'});
             this.$input.on('keydown', this.keyDown.bind(this));
-    
+            
             this.$subtext = new Element('div', {className: 'lfischer-commander-subtext'});
             
             this.$commander = new Element('div', {className: 'lfischer-commander hide'})
-                .update(new Element('h2').update(idoit.Translate.get('lfischer_commander.commander')))
+                .update(new Element('img', {src: window.dir_images + 'icons/close-circle.png', className: 'close'}))
+                .insert(new Element('h2').update(idoit.Translate.get('lfischer_commander.commander')))
                 .insert(this.$input)
                 .insert(this.$subtext);
+            
+            this.$commander.down('img').on('click', this.hide.bind(this));
             
             $('body').insert(this.$commander);
         }
@@ -30,14 +33,14 @@ window.Commander = Class.create({
     
     show: function () {
         this.active = true;
-    
+        
         this.$subtext
-            .insert(new Element('p', {className: 'text-grey'}).update(idoit.Translate.get('lfischer_commander.commander-for-example')))
+            .update(new Element('p', {className: 'text-grey'}).update(idoit.Translate.get('lfischer_commander.commander-for-example')))
             .insert(new Element('p', {className: 'text-grey pt5 pl10'}).update(idoit.Translate.get('lfischer_commander.commander-examples')));
         
         this.$overlay.removeClassName('hide');
         this.$commander.removeClassName('hide');
-    
+        
         this.$input.focus();
         this.$input.select();
     },
@@ -49,7 +52,7 @@ window.Commander = Class.create({
         this.$commander.addClassName('hide');
     },
     
-    keyDown: function(ev) {
+    keyDown: function (ev) {
         if (ev.key === 'Escape') {
             this.hide();
         }
@@ -65,7 +68,7 @@ window.Commander = Class.create({
                     if (!is_json_response(xhr, true)) {
                         return
                     }
-    
+                    
                     if (xhr.responseJSON.data.length === 1) {
                         eval(xhr.responseJSON.data[0].code);
                     } else {
@@ -76,9 +79,10 @@ window.Commander = Class.create({
                             if (!xhr.responseJSON.data.hasOwnProperty(i)) {
                                 continue;
                             }
-    
+                            
                             this.$subtext
-                                .insert(new Element('p', {className: 'pt5 pl10'}).update(idoit.Translate.get('lfischer_commander.commander-examples')));
+                                .insert(new Element('p', {className: 'pt5 pl10'})
+                                    .update(idoit.Translate.get('lfischer_commander.commander-examples')));
                         }
                     }
                 }
