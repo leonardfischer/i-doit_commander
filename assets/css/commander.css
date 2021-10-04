@@ -1,0 +1,27 @@
+.lfischer-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000000;
+    opacity: 0.5;
+    z-index: 200;
+}
+
+.lfischer-commander {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    width: 400px;
+    margin-left:-200px;
+    z-index: 210;
+}
+
+.lfischer-commander-input {
+    width: 100%;
+    margin: 10px 0;
+}
