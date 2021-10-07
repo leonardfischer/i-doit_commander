@@ -1,9 +1,7 @@
 (function() {
-    
     idoit.Translate.set('lfischer_commander.commander', '[{isys type="lang" ident="LC__MODULE__LFISCHER_COMMANDER__COMMANDER"}]');
     idoit.Translate.set('lfischer_commander.commander-for-example', '[{isys type="lang" ident="LC__MODULE__LFISCHER_COMMANDER__COMMANDER_FOR_EXAMPLE"}]');
     idoit.Translate.set('lfischer_commander.commander-examples', '[{isys type="lang" ident="LC__MODULE__LFISCHER_COMMANDER__COMMANDER_EXAMPLES"}]'.replace(/\n/g, '<br />'));
-    idoit.Translate.set('lfischer_commander.did-you-mean', '[{isys type="lang" ident="LC__MODULE__LFISCHER_COMMANDER__DID_YOU_MEAN"}]');
     
     idoit.Require
         .addModule('lfischer.Commander', window.www_dir + 'src/classes/modules/lfischer_commander/assets/js/commander.js')

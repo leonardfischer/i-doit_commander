@@ -1,14 +1,17 @@
 <?php
 
 use idoit\AddOn\ActivatableInterface;
+use idoit\AddOn\ExtensionProviderInterface;
 use idoit\AddOn\InstallableInterface;
 use idoit\Exception\JsonException;
+use idoit\Module\Lfischer_commander\CommanderExtension;
 use idoit\Module\Lfischer_commander\Processor;
 use idoit\Module\Lfischer_commander\Processor\Activate;
 use idoit\Module\Lfischer_commander\Processor\Deactivate;
 use idoit\Module\Lfischer_commander\Processor\Install;
 use idoit\Module\Lfischer_commander\Processor\Uninstall;
 use idoit\Module\Lfischer_commander\Processor\Update;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 /**
  * i-doit
@@ -17,9 +20,9 @@ use idoit\Module\Lfischer_commander\Processor\Update;
  *
  * @package   lfischer_commander
  * @copyright lfischer
- * @license   
+ * @license
  */
-class isys_module_lfischer_commander extends isys_module implements InstallableInterface, ActivatableInterface
+class isys_module_lfischer_commander extends isys_module implements ActivatableInterface, ExtensionProviderInterface, InstallableInterface
 {
     // Define, if this module shall be displayed in the named menus.
     const DISPLAY_IN_MAIN_MENU   = false;
@@ -56,13 +59,24 @@ class isys_module_lfischer_commander extends isys_module implements InstallableI
     }
 
     /**
+     * Returns the module's container extension.
+     *
+     * @return ExtensionInterface
+     */
+    public function getContainerExtension()
+    {
+        return new CommanderExtension();
+    }
+
+    /**
      * Checks if a add-on is installed.
      *
      * @return int|bool
      */
     public static function isInstalled()
     {
-        return isys_module_manager::instance()->is_installed('lfischer_commander');
+        return isys_module_manager::instance()
+            ->is_installed('lfischer_commander');
     }
 
     /**
@@ -135,7 +149,8 @@ class isys_module_lfischer_commander extends isys_module implements InstallableI
      */
     public static function isActive()
     {
-        return isys_module_manager::instance()->is_installed('lfischer_commander', true);
+        return isys_module_manager::instance()
+            ->is_installed('lfischer_commander', true);
     }
 
     /**

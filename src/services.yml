@@ -1,0 +1,8 @@
+services:
+    lfischer_commander:
+        class: idoit\Module\Lfischercommander\Component\Commander
+        arguments:
+            - '@database'
+            - '@language'
+        lazy: true
+        public: true

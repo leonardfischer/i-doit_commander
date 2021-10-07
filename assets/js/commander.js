@@ -24,6 +24,37 @@ window.Commander = Class.create({
                 .insert(new Element('h2').update(idoit.Translate.get('lfischer_commander.commander')))
                 .insert(this.$input)
                 .insert(this.$subtext);
+    
+            this.$subtext.on('click', 'li', function (ev) {
+                const $li = ev.findElement('li');
+                
+                new Ajax.Request(window.www_dir + 'lfischer_commander/ajax/force', {
+                    parameters: {
+                        class: $li.readAttribute('data-classname'),
+                        query: $li.readAttribute('data-query')
+                    },
+                    onComplete: function (xhr) {
+                        if (!is_json_response(xhr, true)) {
+                            return
+                        }
+    
+                        const json = xhr.responseJSON;
+    
+                        if (!json.success) {
+                            idoit.Notify.error(json.message, {life: 10});
+                            return;
+                        }
+                        
+                        const data = json.data;
+            
+                        if (data.executed) {
+                            eval(data.code);
+                        } else {
+                            idoit.Notify.warning(data.message, {life: 10});
+                        }
+                    }.bind(this)
+                })
+            }.bind(this));
             
             this.$commander.down('img').on('click', this.hide.bind(this));
             
@@ -58,35 +89,48 @@ window.Commander = Class.create({
         }
         
         if (ev.key === 'Enter') {
-            new Ajax.Request(window.www_dir + 'lfischer_commander/command', {
+            new Ajax.Request(window.www_dir + 'lfischer_commander/ajax/query', {
                 parameters: {
                     query: this.$input.getValue()
                 },
                 onComplete: function (xhr) {
-                    var i;
-                    
                     if (!is_json_response(xhr, true)) {
                         return
                     }
                     
-                    if (xhr.responseJSON.data.length === 1) {
-                        eval(xhr.responseJSON.data[0].code);
+                    const json = xhr.responseJSON;
+
+                    if (!json.success) {
+                        idoit.Notify.error(json.message, {life: 10});
+                        return;
+                    }
+                    
+                    const data = json.data;
+
+                    if (data.executed) {
+                        eval(data.code);
                     } else {
                         this.$subtext
-                            .update(new Element('p').update(idoit.Translate.get('lfischer_commander.did-you-mean')));
-                        
-                        for (i in xhr.responseJSON.data) {
-                            if (!xhr.responseJSON.data.hasOwnProperty(i)) {
-                                continue;
-                            }
+                            .update(new Element('p').update(data.message))
+                            .insert(new Element('ul'));
+
+                        if (data.hasOwnProperty('tasks')) {
+                            let i;
                             
-                            this.$subtext
-                                .insert(new Element('p', {className: 'pt5 pl10'})
-                                    .update(idoit.Translate.get('lfischer_commander.commander-examples')));
+                            for (i in data.tasks) {
+                                if (!data.tasks.hasOwnProperty(i)) {
+                                    continue;
+                                }
+
+                                this.$subtext
+                                    .down('ul')
+                                    .insert(new Element('li', {'data-classname': data.tasks[i].class, 'data-query': data.query})
+                                        .update(data.tasks[i].name));
+                            }
                         }
                     }
-                }
-            })
+                }.bind(this)
+            });
         }
     }
 });

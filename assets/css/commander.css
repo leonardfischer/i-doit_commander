@@ -30,3 +30,18 @@
     width: 100%;
     margin: 10px 0;
 }
+
+.lfischer-commander-subtext ul {
+    margin: 0;
+    padding: 0;
+    padding-left: 15px;
+}
+
+.lfischer-commander-subtext ul li {
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.lfischer-commander-subtext ul li:hover {
+    color: #a00;
+}

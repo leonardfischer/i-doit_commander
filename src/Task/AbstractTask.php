@@ -18,7 +18,7 @@ abstract class AbstractTask implements TaskInterface
     protected $language;
 
     /**
-     * @param isys_component_database $database
+     * @inheritdoc
      */
     public function __construct(isys_component_database $database, isys_component_template_language_manager $language)
     {
