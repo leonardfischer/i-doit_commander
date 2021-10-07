@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
  * Add-on lfischer_commander module class.
  *
  * @package   lfischer_commander
- * @copyright lfischer
+ * @copyright Leonard Fischer
  * @license
  */
 class isys_module_lfischer_commander extends isys_module implements ActivatableInterface, ExtensionProviderInterface, InstallableInterface
