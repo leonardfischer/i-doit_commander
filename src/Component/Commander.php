@@ -63,7 +63,7 @@ class Commander
         if (count($applicableTasks) === 0) {
             return [
                 'executed' => false,
-                'message' => ' ### no matches'
+                'message' => $this->language->get('LC__MODULE__LFISCHER_COMMANDER__FOUND_NO_MATCH')
             ];
         }
 
