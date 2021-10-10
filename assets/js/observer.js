@@ -13,8 +13,9 @@
             $(document).on('keydown', function(ev) {
                 var now = new Date();
                 
-                // If the last 'Control' tap was less than 500ms ago.
-                if (ev.key === 'Control' && !Commander.active) {
+                // Only observe 'control' keys if the commander is not active and the user is currently not focused in a input or select.
+                if (ev.key === 'Control' && !Commander.active && !ev.target.match('input,select')) {
+                    // If the last 'Control' tap was less than 500ms ago.
                     if ((now - lastKeyDown) <= 500) {
                         keyCounter ++
                         
