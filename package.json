@@ -3,25 +3,10 @@
     "title": "Commander",
     "identifier": "lfischer_commander",
     "author": "Leonard Fischer",
-    "version": "0.1",
+    "version": "0.2",
     "description": "",
     "type": "addon",
-    "files": [
-        "CHANGELOG",
-        "init.php",
-        "install\\update_data.xml",
-        "install",
-        "isys_module_lfischer_commander.class.php",
-        "src\\Processor\\Activate.php",
-        "src\\Processor\\Deactivate.php",
-        "src\\Processor\\Install.php",
-        "src\\Processor\\Uninstall.php",
-        "src\\Processor\\Update.php",
-        "src\\Processor",
-        "src\\Processor.php",
-        "src",
-        "VERSION"
-    ],
+    "files": [],
     "sql-tables": [],
     "requirements": {
         "core": ">= 1.17"
