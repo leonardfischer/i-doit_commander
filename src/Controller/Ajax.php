@@ -74,6 +74,34 @@ class Ajax extends Main
     }
 
     /**
+     * @param Register $request
+     *
+     * @throws \Exception
+     */
+    public function suggest(Register $request)
+    {
+        // Specific handling for i-doits 'Autocomplete' feature.
+        header('Content-Type: text/html');
+
+        // Get the query.
+        $query = trim($request->get('POST')->get('query'));
+
+        $tasks = [];
+        $result = $this->getDi()
+            ->get('lfischer_commander')
+            ->handleQuery($query);
+
+        if (isset($result['tasks']) && is_array($result['tasks']) && count($result['tasks'])) {
+            $tasks = array_map(function ($task) {
+                return '<li data-class="' . $task['class'] . '">' . $task['name'] . '</li>';
+            }, $result['tasks']);
+        }
+
+        echo '<ul>' . implode('', $tasks) . '</ul>';
+        die;
+    }
+
+    /**
      * Post method gets called by the framework.
      */
     public function post()

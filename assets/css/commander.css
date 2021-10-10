@@ -43,5 +43,15 @@
 }
 
 .lfischer-commander-subtext ul li:hover {
-    color: #a00;
+    color: #aa0000;
+}
+
+.lfischer-commander-indicator {
+    position: absolute;
+    top: 41px;
+    right: 20px;
+}
+
+.lfischer-commander-choices.autocomplete ul li {
+    height: auto;
 }
